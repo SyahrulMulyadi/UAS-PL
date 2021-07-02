@@ -29,8 +29,6 @@ public class queue extends javax.swing.JFrame {
     //memberi nilai ke variabel nomor dengan nilai 0
     int nomor = 0;
     
-    // disini semua kita menginsialisasikan method yang telah buat
-    //jadi method yang ada dipanggil dan diinisialsikan pada acceess modifier public queue
     public queue() {
         //untuk eksekusi perintah pada method initcomponents lansung ketika program dijalankan
         initComponents();
@@ -41,16 +39,9 @@ public class queue extends javax.swing.JFrame {
     }
      //ini adalah method inisialisasi dan hanya berisi text pada variabel text yang ada pada form
     private void inisialisasi(){
-         /*pada lbJumlahAntrian berisikan nilai 0 karena ini adalah default ketika tidak ada aktivitas pada program antrian
-        jika telah ada maka akan berisi nilai jumlah antrian yang sedang berjalan
-        */
         lbJmlAntrian.setText("0");
-        /*ini juga berisikan nilai default karena belum ada aktivitas pada program antrian ini, dia akan berubah menjadi nilai 
-        yang ada ketika antrian sudah dimulai, contoh sudah ada antrian 1 maka dia akan berubah menjadi total yang ada pada
-        atrian*/
         lbTotalAntrian.setText("0");
         lbPanggilAntrian.setText("-----");
-        //kode dibawah ini hanya string dan huruf pada tampilan aplikasi
         txtAtas.setText("RS PERMATA HATI");
         txtAtas1.setText("Jl. JENDERAL SUDIRMAN");
         txtAtas2.setText("Kecamatan Mandau, Riau 28784");
@@ -61,46 +52,16 @@ public class queue extends javax.swing.JFrame {
         txtAtas7.setText("--------");
     }
     
-    //ini nerupakan method tambah Antrian
-    /*
-    
-    jadi pada method ini terdapat proses menambah jumlah antrian pada aplikasi
-    
-    */
-    //disini kita munggunakan access modifier private karena dengan menggunanakan accces ini kita hanya
-    //dapat mengakses method ini hanya pada class queue ini saja tidak dapat diakses pada class lainnya
     private void tambahAntrian(){
-        //pada kode ini nanti kita akan melakukan perulangan pada nomor antrian 
-        //karena setiap ada data yang masuk/data baru yang keluar kode ini akan melakukan perulangan 
-        //pada nomor selanjutnya
+
         nomor++;
-        //pada bagian ini kita membuat variabel dengan nama antr yang berisi type data String
-        //lalu dimasukkan dengan variable nomor diatas
         String antr = "Antrian "+nomor;
-        //pada bagian kode ini kita menambahkan nilai pada variable antr yang sudah dibuat diatas tadi
-        //pada bagian kode ini kita menggunakan salah satu bagian dari algortima linkedlist
-        //yakni add, jadi add berfungsi untuk menambahkan data pada sebuah nilai variable
-        //disini pada variable antr yang sudah dibuat diatas tadi.
         antrian.add(antr);
-        //pada bagian kode berikut ini kita membuat sebuah variable lagi dengan nama cvt dengan type data string
-        //lalu kita kembalikan nilai yang ada pada antrian sebagai string yang telah ditentukan yang awalnya adalah integer
-        //dan mendapat kan panjang string yang telah di convert tadi pada method valueOf
         String cvt = String.valueOf(antrian.size());
-        //kode ini akan mengubah secara langsung pada setText nilai jumlah antrian yang didapat tadi
         lbJmlAntrian.setText(cvt);
-        //pada kode berikut ini kita akan melihat data teratas dengan menggunakan method bawaan pada queue tersebut yakni 
-        //method bawaan peek(untuk meliha data teratas pada sebuah statck)
-        /* 
-        Jadi pada program ini terdapat beberapa algoritma didalamnya termasuk stack, jadi ketika data yang ada akan di
-        cek dengab peek pada sebuah stack maupun queue
-        */
         lbPanggilAntrian.setText(""+antrian.peek());
-        //kode ini akan mengubah nilai total antrian pada text yang ada pada gui
         lbTotalAntrian.setText(""+nomor);
-        //ini merupakah salah satu method dari class StringBuffer yang fungsinya untuk menambahkan nilai
-        //pada variable antr sehingga nilai akan terupdate/bertambah setiap ada perubahan penambahan data
         txtAntrian.append(antr + "\n");
-        // ini hanya text yang ada pada gui hanya untuk memperbagus tampilan pada gui yang dibuat
         txtAtas3.setText("Senin, 28 Juni 2021");
         txtAtas4.setText("Nomor Antrian");
         txtAtas5.setText("  " + nomor);
@@ -108,40 +69,18 @@ public class queue extends javax.swing.JFrame {
         txtAtas7.setText("Mohon untuk bersabar");
     }
     
-    //sama dengan method sebelumnya, pada method ini digunakan access modified private agar dapat digunakan dalam 
-    //satu class yang sama saja, alasan penggunaan access modified ini adalah agar class lain tidak dapat mengakses dan alasan keamanan 
     private void prosesAntrian(){
-        //pada kode program ini menggunakan salah satu method pada queue yakni isEmpty disini
-        //menggunakan pengecekan data apakah nilai antrian tersebut bernilai null atau kosong
         if(antrian.isEmpty()){
-            //jika bernilai kosong/null/empty maka akan menampilkan prompt, berikut ini dapat digunakan
-            //karena telah mengimport java swing di awal
             JOptionPane.showMessageDialog(this, "Ambil Nomor antrian terlebih dahulu !");
         }
-        //disini terdapat sebuah variable txtAntrian yang bernilai kosong karena 
-        //dalam antrian harus bernilai kosong sebelum di inputkan nilai untuk pertama kali tentunya
         txtAntrian.setText("");
-        /* 
-       poll untuk mengatur banyaknya antrian yang dibuat sehingga dapat mengeksekusi 
-        hingga queue antrian yang paling akhir */
         antrian.poll();
-        //antrian tadi yang sudah diisi akan dilakukan looping dengan menggunakan forEach loop
-        //maka semakin banyak antrian maka akan terjadi looping sebanyak data yang masuk diawal
         antrian.forEach((Object element) -> {
-            //pada proses ini akan melooping nilai yang ada di dalam forEach itu sendiri
-            //dan pada proses ini akan menambahkan data yang secara otomatis sebanyak nilai antrian/queue yang 
-            //dimasukkan, ini masih menggunakan class Buffer untuk menambahkan data dengan keyword append
             txtAntrian.append("" + element + "\n");
         });
-        //disini masih terdapat pengecekan apakah antrian tersebut masih kosong dengan method bawaan queue itu
-        //yakni empty jika masih kosong
         if(antrian.isEmpty()){
-            //jika kosong akan menampilka --- pada jlabel nopanggil
             lbPanggilAntrian.setText("-----");
         }else{
-            //jika data tidak kosong maka akan menggunakan fungsi peek kembali
-            //untuk mengecek apakah data yang masuk sudah sesuai dengan sistem queue itu sendiri
-            //Jadi queue itu yang masuk pertama akan keluar yang pertama juga sesuai dengan prinsip antrian
             lbPanggilAntrian.setText(""+antrian.peek());
         }
     }
